@@ -6,6 +6,7 @@ Users can upload PDF or TXT documents and ask natural language questions about t
 
 ---
 
+
 # Features
 
 - Upload PDF or TXT documents
@@ -24,8 +25,6 @@ Users can upload PDF or TXT documents and ask natural language questions about t
 ## Backend
 - Python
 - FastAPI
-- FAISS
-- Sentence Transformers
 - Groq API
 
 ## Frontend
@@ -48,7 +47,7 @@ Chunking
       ↓
 Embedding Generation
       ↓
-FAISS Vector Storage
+Vector Storage
       ↓
 Similarity Retrieval
       ↓
