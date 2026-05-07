@@ -5,7 +5,7 @@ A Retrieval-Augmented Generation (RAG) based chatbot inspired by Google Notebook
 Users can upload PDF or TXT documents and ask natural language questions about the uploaded content. The chatbot retrieves relevant chunks from the document using vector similarity search and generates grounded responses using an LLM.
 
 ---
-
+[Live Project link](https://notebook-lm-rag-chat-bot.vercel.app/)
 
 # Features
 
