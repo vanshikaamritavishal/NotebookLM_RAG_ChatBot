@@ -1,4 +1,4 @@
-const BASE_URL = "http://127.0.0.1:10000";
+const BASE_URL = "https://notebooklm-rag-backend.onrender.com";
 
 function formatAnswer(text) {
 
