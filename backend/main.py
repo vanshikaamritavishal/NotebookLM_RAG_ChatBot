@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from pypdf import PdfReader
 
-from rag import chunk_text, store_chunks, retrieve
+from rag import process_document, get_context
 from utils import ask_llm
 
 app = FastAPI()
@@ -44,20 +44,17 @@ async def upload_file(file: UploadFile = File(...)):
     else:
         return {"error": "Only PDF and TXT supported"}
 
-    chunks = chunk_text(text)
-
-    store_chunks(chunks)
+    process_document(text)
 
     return {
-        "message": "Document uploaded successfully",
-        "chunks": len(chunks)
+        "message": "Document uploaded successfully"
     }
 
 @app.post("/ask")
 
 def ask(q: Question):
 
-    context = retrieve(q.question)
+    context = get_context(q.question)
 
     answer = ask_llm(q.question, context)
 

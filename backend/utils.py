@@ -1,39 +1,44 @@
 import os
-from sentence_transformers import SentenceTransformer
 from groq import Groq
 from dotenv import load_dotenv
+from sklearn.feature_extraction.text import TfidfVectorizer
+import numpy as np
 
 load_dotenv()
 
-embedding_model = SentenceTransformer("paraphrase-MiniLM-L3-v2")
+client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
-client = Groq(
-    api_key=os.getenv("GROQ_API_KEY")
-)
+vectorizer = TfidfVectorizer()
 
-def get_embedding(text):
-    return embedding_model.encode(text).tolist()
+stored_chunks = []
+stored_vectors = None
 
-def get_embeddings(texts):
-    return embedding_model.encode(texts).tolist()
+
+def build_vectors(chunks):
+    global stored_chunks, stored_vectors
+
+    stored_chunks = chunks
+    stored_vectors = vectorizer.fit_transform(chunks)
+
+
+def retrieve_chunks(question, top_k=3):
+    question_vector = vectorizer.transform([question])
+
+    similarities = np.dot(
+        stored_vectors,
+        question_vector.T
+    ).toarray()
+
+    top_indices = similarities.flatten().argsort()[-top_k:][::-1]
+
+    return [stored_chunks[i] for i in top_indices]
+
 
 def ask_llm(question, context):
-
     prompt = f"""
-You are a document question-answering assistant.
+You are a helpful document assistant.
 
-Answer ONLY using the provided context.
-
-Formatting rules:
-- Use bullet points when listing more than 1 items
-- Keep answers clean and readable
-- If multiple items exist, show all of them
-- Do not hallucinate information
-
-If the answer contains multiple items, list ALL of them clearly.
-
-If the answer is not found in the context, say:
-"I could not find that information in the document."
+Answer ONLY from the provided context.
 
 Context:
 {context}

@@ -1,3 +1,5 @@
+const BASE_URL = "http://127.0.0.1:10000";
+
 function formatAnswer(text) {
 
     const lines = text.split("\n");
@@ -10,9 +12,9 @@ function formatAnswer(text) {
 
         line = line.trim();
 
-        if (
-            line.match(/^(\d+\.|-|\*)\s/)
-        ) {
+        if (!line) return;
+
+        if (line.match(/^(\d+\.|-|\*)\s/)) {
 
             if (!inList) {
                 formatted += "<ul>";
@@ -59,16 +61,22 @@ async function uploadFile() {
     try {
 
         const response = await fetch(
-            "http://127.0.0.1:8000/upload",
+            `${BASE_URL}/upload`,
             {
                 method: "POST",
                 body: formData
             }
         );
 
+        if (!response.ok) {
+            throw new Error("Upload failed");
+        }
+
         const data = await response.json();
 
         alert("Document uploaded successfully!");
+
+        console.log(data);
 
     } catch (error) {
 
@@ -93,7 +101,7 @@ async function askQuestion() {
     try {
 
         const response = await fetch(
-            "http://127.0.0.1:8000/ask",
+            `${BASE_URL}/ask`,
             {
                 method: "POST",
                 headers: {
@@ -104,6 +112,10 @@ async function askQuestion() {
                 })
             }
         );
+
+        if (!response.ok) {
+            throw new Error("Request failed");
+        }
 
         const data = await response.json();
 
