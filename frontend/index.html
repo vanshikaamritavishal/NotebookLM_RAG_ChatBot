@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NotebookLM RAG</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+
+        <h1>NotebookLM RAG</h1>
+
+        <p class="subtitle">
+            Upload a document and chat with it
+        </p>
+
+        <div class="upload-section">
+
+            <input type="file" id="fileInput">
+
+            <button onclick="uploadFile()">
+                Upload
+            </button>
+
+        </div>
+
+        <div class="chat-section">
+
+            <div class="input-row">
+
+                <input
+                    type="text"
+                    id="question"
+                    placeholder="Ask something about the document..."
+                >
+
+                <button onclick="askQuestion()">
+                    Ask
+                </button>
+
+            </div>
+
+            <div id="answer" class="answer-box">
+                Your answer will appear here...
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>

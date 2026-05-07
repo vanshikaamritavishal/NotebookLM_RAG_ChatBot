@@ -1,0 +1,98 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f5f5f5;
+    min-height: 100vh;
+    padding: 40px 20px;
+    color: #111;
+}
+
+.container {
+    max-width: 900px;
+    margin: auto;
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+}
+
+h1 {
+    font-size: 52px;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    color: #666;
+    margin-bottom: 40px;
+    font-size: 18px;
+}
+
+.upload-section {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    margin-bottom: 35px;
+}
+
+input[type="file"] {
+    font-size: 16px;
+}
+
+.input-row {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+input[type="text"] {
+    flex: 1;
+    padding: 16px;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    font-size: 17px;
+    outline: none;
+}
+
+input[type="text"]:focus {
+    border-color: #111;
+}
+
+button {
+    padding: 14px 24px;
+    border: none;
+    border-radius: 12px;
+    background: black;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.2s ease;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+.answer-box {
+    background: #f7f7f7;
+    padding: 24px;
+    border-radius: 16px;
+    min-height: 120px;
+    line-height: 1.8;
+    white-space: pre-wrap;
+    font-size: 17px;
+    border: 1px solid #ececec;
+}
+
+.answer-box ul {
+    padding-left: 20px;
+    margin-top: 10px;
+}
+
+.answer-box li {
+    margin-bottom: 10px;
+}
