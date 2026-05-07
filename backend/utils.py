@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-embedding_model = SentenceTransformer("all-MiniLM-L6-v2")
+embedding_model = SentenceTransformer("paraphrase-MiniLM-L3-v2")
 
 client = Groq(
     api_key=os.getenv("GROQ_API_KEY")
