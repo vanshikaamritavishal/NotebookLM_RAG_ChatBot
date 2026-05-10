@@ -1,5 +1,4 @@
-const BASE_URL = "https://notebooklm-rag-backend.onrender.com";
-
+const YOUR_RENDER_BACKEND_URL = "https://notebooklm-rag-backend.onrender.com";
 function formatAnswer(text) {
 
     const lines = text.split("\n");
@@ -12,9 +11,9 @@ function formatAnswer(text) {
 
         line = line.trim();
 
-        if (!line) return;
-
-        if (line.match(/^(\d+\.|-|\*)\s/)) {
+        if (
+            line.match(/^(\d+\.|-|\*)\s/)
+        ) {
 
             if (!inList) {
                 formatted += "<ul>";
@@ -23,7 +22,7 @@ function formatAnswer(text) {
 
             line = line.replace(/^(\d+\.|-|\*)\s/, "");
 
-            formatted += `<li>${line}</li>`;
+            formatted += `<li>${line.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")}</li>`;
 
         } else {
 
@@ -32,7 +31,9 @@ function formatAnswer(text) {
                 inList = false;
             }
 
-            formatted += `<p>${line}</p>`;
+            if (line !== "") {
+                formatted += `<p>${line.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")}</p>`;
+            }
         }
     });
 
@@ -61,22 +62,16 @@ async function uploadFile() {
     try {
 
         const response = await fetch(
-            `${BASE_URL}/upload`,
+            `${YOUR_RENDER_BACKEND_URL}/upload`,
             {
                 method: "POST",
                 body: formData
             }
         );
 
-        if (!response.ok) {
-            throw new Error("Upload failed");
-        }
-
         const data = await response.json();
 
         alert("Document uploaded successfully!");
-
-        console.log(data);
 
     } catch (error) {
 
@@ -101,7 +96,7 @@ async function askQuestion() {
     try {
 
         const response = await fetch(
-            `${BASE_URL}/ask`,
+            `${YOUR_RENDER_BACKEND_URL}/ask`,
             {
                 method: "POST",
                 headers: {
@@ -112,10 +107,6 @@ async function askQuestion() {
                 })
             }
         );
-
-        if (!response.ok) {
-            throw new Error("Request failed");
-        }
 
         const data = await response.json();
 
@@ -128,3 +119,32 @@ async function askQuestion() {
         answerDiv.innerHTML = "Error generating response.";
     }
 }
+
+const questionInput = document.getElementById("question");
+
+questionInput.addEventListener("keypress", function(event) {
+
+    if (event.key === "Enter") {
+        askQuestion();
+    }
+});
+
+const fileInput = document.getElementById("fileInput");
+
+const uploadBtn = document.getElementById("uploadBtn");
+
+fileInput.addEventListener("change", function() {
+
+    if (fileInput.files.length > 0) {
+
+        uploadBtn.disabled = false;
+
+        uploadBtn.classList.add("active-upload");
+
+    } else {
+
+        uploadBtn.disabled = true;
+
+        uploadBtn.classList.remove("active-upload");
+    }
+});

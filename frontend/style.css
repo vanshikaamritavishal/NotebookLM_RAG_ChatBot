@@ -96,3 +96,37 @@ button:hover {
 .answer-box li {
     margin-bottom: 10px;
 }
+#uploadBtn {
+    background-color: #9ca3af;
+    cursor: not-allowed;
+    transition: 0.3s ease;
+}
+
+#uploadBtn.active-upload {
+    background-color: #111827;
+    cursor: pointer;
+}
+#answer {
+    margin-top: 24px;
+    background: #f5f5f5;
+    padding: 24px;
+    border-radius: 16px;
+    font-size: 20px;
+    line-height: 1.7;
+    color: #111827;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+#answer p {
+    margin-bottom: 16px;
+}
+
+#answer ul {
+    padding-left: 24px;
+    margin-bottom: 16px;
+}
+
+#answer li {
+    margin-bottom: 10px;
+}
